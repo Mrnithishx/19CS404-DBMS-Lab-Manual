@@ -105,240 +105,291 @@ CREATE TABLE Table_Name (
 
 **Question 1**
 --
-Insert the below data into the Student_details table, allowing the Subject and MARKS columns to take their default values.
+create a table named jobs including columns job_id, job_title, min_salary and max_salary, and make sure that, the default value for job_title is blank and min_salary is 8000 and max_salary is NULL will be entered automatically at the time of insertion if no value assigned for the specified columns.
 
-RollNo      Name          Gender      
-----------  ------------  ----------  
-204         Samuel Black  M          
+For example:
+### Test	
+INSERT INTO jobs (job_id, job_title, min_salary, max_salary) VALUES (1, 'Software Engineer', 9000, 15000);
+SELECT * FROM jobs;
+### Result
+job_id      job_title          min_salary  max_salary
+----------  -----------------  ----------  ----------
+1           Software Engineer  9000        15000
 
-Note: The Subject and MARKS columns will use their default values.
 
-```sql
-INSERT INTO Student_details (RollNo, Name, Gender)
-VALUES (204, 'Samuel Black', 'M');
-
-SELECT RollNo, Name, Gender 
-FROM Student_details 
-WHERE RollNo = 204;
-
+```
+CREATE TABLE jobs(
+job_id INTEGER,
+job_title VARCHAR(50) DEFAULT "",
+min_salary INTEGER DEFAULT 8000,
+max_salary INTEGER DEFAULT NULL
+);
 ```
 
 **Output:**
-
-<img width="1196" height="250" alt="image" src="https://github.com/user-attachments/assets/9b7bebbe-2b61-4b18-9171-8a04aa904726" />
+<img width="1240" height="421" alt="image" src="https://github.com/user-attachments/assets/540a20df-831f-40ef-902f-ae1bf7ecccce" />
 
 
 **Question 2**
 ---
-Insert all customers from Old_customers into Customers
+Insert the following customers into the Customers table:
 
-Table attributes are CustomerID, Name, Address, Email
+CustomerID  Name         Address     City        ZipCode
+----------  -----------  ----------  ----------  ----------
+302         Laura Croft  456 Elm St  Seattle     98101
+303         Bruce Wayne  789 Oak St  Gotham      10001
+For example:
+
+Test	Result
+SELECT * FROM Customers;
+
+CustomerID  Name         Address     City        ZipCode
+----------  -----------  ----------  ----------  ----------
+302         Laura Croft  456 Elm St  Seattle     98101
+303         Bruce Wayne  789 Oak St  Gotham      10001
 
 ```sql
-
-INSERT INTO Customers (CustomerID, Name, Address, Email)
-SELECT CustomerID, Name, Address, Email
-FROM Old_customers;
-
+INSERT INTO Customers VALUES (302,'Laura Croft','456 Elm St','Seattle',98101);
+INSERT INTO Customers VALUES (303,'Bruce Wayne','789 Oak St','Gotham',10001);
 ```
 
 **Output:**
 
-<img width="1196" height="250" alt="image" src="https://github.com/user-attachments/assets/5aac1182-a974-4b3a-a13b-3fb0d7f29f81" />
+<img width="1233" height="473" alt="image" src="https://github.com/user-attachments/assets/36737e4f-5bad-4a2d-a411-77413e723005" />
 
 
 **Question 3**
 ---
-Insert the following students into the Student_details table:
-RollNo      Name        Gender      Subject     MARKS
-----------  ----------  ----------  ----------  ----------
-202            Ella King         F           Chemistry   87
-203            James Bond   M          Literature    78
+Write a SQL Query  to Rename attribute "name" to "first_name"  and add mobilenumber as number ,DOB as Date,State as varchar(30) in the table Companies. 
+
+For example:
+
+Test	Result
+pragma table_info('Companies');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          int         0                       0
+1           first_name  varchar(50  0                       0
+2           address     text        0                       0
+3           email       varchar(50  0                       0
+4           phone       varchar(10  0                       0
+5           mobilenumb  number      0                       0
+6           DOB         Date        0                       0
+7           State       varchar(30  0                       0
+
 ```sql
-
-INSERT INTO Student_details (RollNo, Name, Gender, Subject, MARKS)
-VALUES 
-(202, 'Ella King', 'F', 'Chemistry', 87),
-(203, 'James Bond', 'M', 'Literature', 78);
-
+ALTER TABLE Companies RENAME COLUMN name TO first_name;
+ALTER TABLE Companies ADD mobilenumber number; 
+ALTER TABLE Companies ADD DOB Date;
+ALTER TABLE Companies ADD State varchar(30);
 ```
 
 **Output:**
 
-<img width="813" height="267" alt="image" src="https://github.com/user-attachments/assets/e465fcbc-9ad2-4c0e-a0f2-d0111634a830" />
-
+<img width="1237" height="506" alt="image" src="https://github.com/user-attachments/assets/a8fffced-12d8-4947-949a-2c446b3c7682" />
 
 
 **Question 4**
+---
+Create a table named Products with the following columns:
+
+ProductID as INTEGER
+ProductName as TEXT
+Price as REAL
+Stock as INTEGER
+For example:
+
+Test	Result
+pragma table_info('Products');
+cid   name        type        notnull     dflt_value  pk
+----  ----------  ----------  ----------  ----------  ----------
+0     ProductID   INTEGER     0                       0
+1     ProductNam  TEXT        0                       0
+2     Price       REAL        0                       0
+3     Stock       INTEGER     0                       0
+```sql
+create table Products(
+ProductID INTEGER,
+ProductName TEXT,
+Price REAL,
+Stock INTEGER
+);
+```
+
+**Output:**
+<img width="1233" height="405" alt="image" src="https://github.com/user-attachments/assets/da5afeae-9901-4727-99ef-3ca111dde87d" />
+
+
+**Question 5**
+---
+Create a table named Invoices with the following constraints:
+
+InvoiceID as INTEGER should be the primary key.
+InvoiceDate as DATE.
+DueDate as DATE should be greater than the InvoiceDate.
+Amount as REAL should be greater than 0.
+For example:
+
+Test	Result
+INSERT INTO Invoices (InvoiceID, InvoiceDate)
+VALUES (1, '2024-08-08'),(1,'2024-09-08');
+Error: UNIQUE constraint failed: Invoices.InvoiceID
+
+
+```sql
+create table Invoices(
+InvoiceID INTEGER primary key,
+InvoiceDate DATE,
+DueDate DATE check(DueDate>InvoiceDate),
+Amount REAL check(Amount>0)
+);
+```
+
+**Output:**
+
+<img width="1234" height="371" alt="image" src="https://github.com/user-attachments/assets/6a5abd62-a793-48c9-bdb2-2ec8368c7ecc" />
+
+
+**Question 6**
+---
+Create a table named Orders with the following constraints:
+OrderID as INTEGER should be the primary key.
+OrderDate as DATE should be not NULL.
+CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
+For example:
+
+Test	Result
+INSERT INTO Customers (CustomerID, FirstName, LastName, Email) VALUES (1, 'Alice', 'Johnson', 'alice.johnson@example.com');
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (1, '2024-08-01', 1);
+select * from orders;
+OrderID     OrderDate   CustomerID
+----------  ----------  ----------
+1           2024-08-01  1
+
+```sql
+create table Orders(
+OrderID INTEGER primary key,
+OrderDate DATE not NULL,
+CustomerID INTEGER references Customers(CustomerID) 
+);
+```
+
+**Output:**
+<img width="1235" height="372" alt="image" src="https://github.com/user-attachments/assets/9d023b77-e5fd-4e84-a748-b9f1f567129e" />
+
+
+**Question 7**
+---
+Create a table named Products with the following constraints:
+ProductID as INTEGER should be the primary key.
+ProductName as TEXT should be unique and not NULL.
+Price as REAL should be greater than 0.
+StockQuantity as INTEGER should be non-negative.
+For example:
+
+Test	Result
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 10);
+select * from Products;
+ProductID   ProductName  Price       StockQuantity
+----------  -----------  ----------  -------------
+1           Laptop       999.99      10
+
+
+```sql
+create table Products(
+ProductID INTEGER primary key,
+ProductName TEXT unique not NULL,
+Price REAL check(Price>0),
+StockQuantity INTEGER check(StockQuantity>0)
+);
+```
+
+**Output:**
+<img width="1233" height="371" alt="image" src="https://github.com/user-attachments/assets/1d33c3fa-724a-451b-8cc7-c93165ee8956" />
+
+
+**Question 8**
+---
+Insert a customer with CustomerID 301, Name Michael Jordan, Address 123 Maple St, City Chicago, and ZipCode 60616 into the Customers table.
+
+For example:
+
+Test	Result
+SELECT * FROM Customers WHERE CustomerID = 301;
+CustomerID  Name            Address       City        ZipCode
+----------  --------------  ------------  ----------  ----------
+301         Michael Jordan  123 Maple St  Chicago     60616
+
+
+```sql
+insert into Customers values (301,'Michael Jordan','123 Maple St','Chicago',60616);
+```
+
+**Output:**
+<img width="1238" height="329" alt="image" src="https://github.com/user-attachments/assets/4c802cbc-5cd1-44e8-ae3d-3525e1ce7d51" />
+
+**Question 9**
+---
+In the Products table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+
+ProductID   Name              Category    Price       Stock
+----------  ---------------   ----------  ----------  ----------
+106         Fitness Tracker   Wearables
+107         Laptop            Electronics  999.99      50
+108         Wireless Earbuds  Accessories              100
+ 
+
+For example:
+
+Test	Result
+SELECT * FROM Products;
+ProductID   Name             Category    Price       Stock
+----------  ---------------  ----------  ----------  ----------
+106         Fitness Tracker  Wearables
+107         Laptop           Electronic  999.99      50
+108         Wireless Earbud  Accessorie              100
+
+
+```sql
+insert into Products values(106,'Fitness Tracker','Wearables',null,null);
+insert into Products values(107,'Laptop','Electronic',999.99,50);
+insert into Products values(108,'Wireless Earbud','Accessorie',null,100);
+```
+
+**Output:**
+<img width="1236" height="379" alt="image" src="https://github.com/user-attachments/assets/3558ac15-c487-409e-9d80-d1dcf2eb1643" />
+
+**Question 10**
 ---
 Write an SQL query to add two new columns, designation and net_salary, to the table Companies. The designation column should have a data type of varchar(50), and the net_salary column should have a data type of number.
 
  
 
-```sql
-ALTER TABLE Companies
-ADD COLUMN designation varchar(50);
-
-ALTER TABLE Companies
-ADD COLUMN net_salary number;
-
-```
-
-**Output:**
-
-<img width="802" height="382" alt="image" src="https://github.com/user-attachments/assets/cb2e4c21-6b28-4c72-b65b-bcfe980ac5d0" />
-
-
-**Question 5**
----
-Create a table named Orders with the following constraints:
-
-    OrderID as INTEGER should be the primary key.
-    OrderDate as DATE should be not NULL.
-    CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
-
-
-```sql
-CREATE TABLE Orders (
-    OrderID INTEGER PRIMARY KEY,
-    OrderDate DATE NOT NULL,
-    CustomerID INTEGER,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-);
-
-```
-
-**Output:**
-
-<img width="825" height="333" alt="image" src="https://github.com/user-attachments/assets/cc7ccd5f-ee7a-4a8a-ac00-d5700ac82b0d" />
-
-
-**Question 6**
----
-Write a SQL query to Rename the "city" column to "location" in the "customer" table.
-
-Sample table: customer
-
- customer_id |   cust_name    |    city    | grade | salesman_id 
--------------+----------------+------------+-------+-------------
-        3002 | Nick Rimando   | New York   |   100 |        5001
-        3007 | Brad Davis     | New York   |   200 |        5001
-        3005 | Graham Zusi    | California |   200 |        5002
-
  
-
-```sql
-ALTER TABLE customer
-RENAME COLUMN city TO location;
-
-```
-
-**Output:**
-
-<img width="829" height="398" alt="image" src="https://github.com/user-attachments/assets/3c988350-a12f-4cc8-8270-8f34aae1df60" />
-
-
-**Question 7**
----
-Create a table named Attendance with the following constraints:
-
-    AttendanceID as INTEGER should be the primary key.
-    EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
-    AttendanceDate as DATE.
-    Status as TEXT should be one of 'Present', 'Absent', 'Leave'.
-
-
-```sql
-CREATE TABLE Attendance (
-    AttendanceID INTEGER PRIMARY KEY,
-    EmployeeID INTEGER,
-    AttendanceDate DATE,
-    Status TEXT CHECK (Status IN ('Present', 'Absent', 'Leave')),
-    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
-);
-
-```
-
-**Output:**
-
-<img width="825" height="345" alt="image" src="https://github.com/user-attachments/assets/fb22e868-9318-48bc-84c3-3914d2585f5d" />
-
-
-**Question 8**
----
-Create a table named Products with the following columns:
-
-    ProductID as INTEGER
-    ProductName as TEXT
-    Price as REAL
-    Stock as INTEGER
-
-
-```sql
-CREATE TABLE Products (
-    ProductID INTEGER,
-    ProductName TEXT,
-    Price REAL,
-    Stock INTEGER
-);
-
-```
-
-**Output:**
-
-<img width="815" height="374" alt="image" src="https://github.com/user-attachments/assets/3d598e5c-93e1-4a8c-ac8c-89c7a4857f8e" />
-
-
-**Question 9**
----
-Create a table named ProjectAssignments with the following constraints:
-
-    AssignmentID as INTEGER should be the primary key.
-    EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
-    ProjectID as INTEGER should be a foreign key referencing Projects(ProjectID).
-    AssignmentDate as DATE should be NOT NULL.
-
-
-```sql
-
-CREATE TABLE ProjectAssignments (
-    AssignmentID INTEGER PRIMARY KEY,
-    EmployeeID INTEGER,
-    ProjectID INTEGER,
-    AssignmentDate DATE NOT NULL,
-    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
-    FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID)
-);
-
-```
-
-**Output:**
-
-<img width="832" height="354" alt="image" src="https://github.com/user-attachments/assets/1a1b06b4-67b0-4fa0-a74d-985005725cda" />
-
-
-**Question 10**
----
-Create a table named Invoices with the following constraints:
-
-    InvoiceID as INTEGER should be the primary key.
-    InvoiceDate as DATE.
-    DueDate as DATE should be greater than the InvoiceDate.
-    Amount as REAL should be greater than 0.
 
 For example:
 
+Test	Result
+pragma table_info('Companies');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          int         0                       0
+1           name        varchar(50  0                       0
+2           address     text        0                       0
+3           email       varchar(50  0                       0
+4           phone       varchar(10  0                       0
+5           designatio  varchar(50  0                       0
+6           net_salary  number      0                       0
+
+
 ```sql
-CREATE TABLE Invoices (
-    InvoiceID INTEGER PRIMARY KEY,
-    InvoiceDate DATE,
-    DueDate DATE CHECK (DueDate > InvoiceDate),
-    Amount REAL CHECK (Amount > 0)
-);
+alter table Companies add designatio varchar(50);
+alter table Companies add net_salary number;
 ```
 
 **Output:**
-<img width="833" height="375" alt="image" src="https://github.com/user-attachments/assets/856bdc1e-8c98-4393-845e-5502064b3a4e" />
+
+<img width="1236" height="477" alt="image" src="https://github.com/user-attachments/assets/9c7c858f-dcdf-4d5a-a8c1-f4972f59dc62" />
 
 
 
